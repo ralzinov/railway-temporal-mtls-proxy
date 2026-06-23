@@ -1,0 +1,14 @@
+{
+	auto_https off
+}
+
+:{$PORT:7233} {
+	tls /etc/caddy/certs/server.crt /etc/caddy/certs/server.key {
+		client_auth {
+			mode require_and_verify
+			trusted_ca_cert_file /etc/caddy/certs/ca.crt
+		}
+	}
+
+	reverse_proxy h2c://{$TEMPORAL_UPSTREAM:temporal-frontend.railway.internal:7233}
+}

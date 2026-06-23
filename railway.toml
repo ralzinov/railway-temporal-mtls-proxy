@@ -1,0 +1,19 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "/entrypoint.sh"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+healthcheckPath = ""
+healthcheckTimeout = 300
+
+[environments.production.variables]
+PORT = "7233"
+TEMPORAL_UPSTREAM = "temporal-frontend.railway.internal:7233"
+
+# These must be added manually in Railway UI / CLI as secrets:
+# TEMPORAL_TLS_CA_CERT
+# TEMPORAL_TLS_SERVER_CERT
+# TEMPORAL_TLS_SERVER_KEY
